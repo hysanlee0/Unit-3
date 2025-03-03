@@ -10,6 +10,10 @@ color frenchGray = #B8B3BE;
 color white = #ffffff;
 color indColor;
 
+int x;
+int y;
+int r;
+
 void setup () {
   size(600, 600);
   strokeWeight(5);
@@ -22,27 +26,15 @@ void draw () {
   
   //buttons
   
-  if (dist(100, 500, mouseX, mouseY) < 50) {
-  stroke(white);
-  } else {
-    stroke(Aquamarine);
-  }
+  tactile (100, 500, 50);
   fill(Aquamarine);
   circle(100, 500, 100);
   
-  if (dist(300, 500, mouseX, mouseY) < 50) {
-  stroke(white);
-  } else {
-    stroke(paleAzure);
-  }
+  tactile (300, 500, 50);
   fill(paleAzure);
   circle(300, 500, 100);
   
-  if (dist(500, 500, mouseX, mouseY) < 50) {
-  stroke(white);
-  } else {
-  stroke (lightCyan);
-  }
+  tactile (500, 500, 50);
   fill(lightCyan);
   circle(500, 500, 100);
   
@@ -51,6 +43,16 @@ void draw () {
   fill(indColor);
   square(150, 50, 300);
 }
+
+
+void tactile (int x, int y, int r) {
+if (dist(x, y, mouseX, mouseY) < r) {
+  stroke(white);
+  } else {
+    stroke(126, 126, 126);
+  }
+}
+
 
 void mouseReleased() {
  if (dist(100, 500, mouseX, mouseY) < 50)
