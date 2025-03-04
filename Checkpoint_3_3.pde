@@ -10,7 +10,9 @@ color palatinate = #571F4E;
 
 float sliderX1;
 float sliderX2;
-float shade:
+float shade;
+float thick;
+
 void setup() {
   size (800, 600);
   strokeWeight(10);
@@ -21,6 +23,9 @@ void setup() {
 
 void draw() {
   background(shade);
+  shade = map(sliderX1, 100, 700, 0, 255);
+  strokeWeight(thick);
+  thick = map(sliderX2, 100, 700, 1, 15);
   fill(palatinate);
   line (100, 200, 700, 200);
   circle(sliderX1, 200, 100);
@@ -42,5 +47,5 @@ void controlSlider() {
   if (mouseX > 100 && mouseX < 700 && mouseY > 350 && mouseY < 450) {
     sliderX2 = mouseX;
   }
-  shade = sliderX
+ 
 }
