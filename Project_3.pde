@@ -24,9 +24,7 @@ float thickness;
 void setup() {
   size (800, 800);
   background(white);
-  noStroke();
   fill(grey);
-  rect (0, 0, 800, 200);
   strokeWeight(5);
   indColor = 255;
   sliderY = 100;
@@ -34,6 +32,16 @@ void setup() {
 
 
 void draw() {
+noStroke();
+fill(grey);
+rect (0, 0, 800, 200);
+
+//slider
+strokeWeight(5);
+stroke(black);
+fill(white);
+line(450, 25, 450, 175); 
+circle(450, sliderY, 30);
 
 //buttons
 tactile(50, 50, 38);
@@ -69,12 +77,14 @@ fill(black);
 circle(350, 150, 75);
 
 //indicator
-stroke(grey);
-fill(indColor);
-rect(400, 400, 100, 100);
+stroke(indColor);
+strokeWeight(thickness);
+line(500, 25, 500, 175);
+thickness = map(sliderY, 25, 175, 1, 15);
 }
 
 void mouseReleased() {
+ controlSlider();
  if (dist(50, 50, mouseX, mouseY) < 37.5)
  indColor = red;
  if (dist(50, 150, mouseX, mouseY) < 37.5)
@@ -100,3 +110,18 @@ if (dist(x, y, mouseX, mouseY) < r) {
     stroke(grey);
   }
 }
+
+void mouseDragged () {
+  controlSlider();
+  if (mouseY > 200) {
+    stroke (indColor);
+    strokeWeight (thickness);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+  }
+}
+
+void controlSlider () {
+  if (mouseX > 420 && mouseX < 480 && mouseY > 25 && mouseY < 175) {
+    sliderY = mouseY;
+    }
+  }
