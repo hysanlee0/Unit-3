@@ -41,41 +41,25 @@ strokeWeight(5);
 stroke(black);
 fill(white);
 line(450, 25, 450, 175); 
-circle(450, sliderY, 30);
+sliderTactile(450, 30);
+circle (450, sliderY, 30);
 
 //buttons
-tactile(50, 50, 38);
-fill(red);
-circle(50, 50, 75);
+circleTactile(red, 50, 50, 75);
 
-tactile(50, 150, 38);
-fill(orange);
-circle(50, 150, 75);
+circleTactile(orange, 50, 150, 75);
 
-tactile(150, 50, 38);
-fill(yellow);
-circle(150, 50, 75);
+circleTactile(yellow, 150, 50, 75);
 
-tactile(150, 150, 38);
-fill(green);
-circle(150, 150, 75);
+circleTactile(green, 150, 150, 75);
 
-tactile(250, 50, 38);
-fill(blue);
-circle(250, 50, 75);
+circleTactile(blue, 250, 50, 75);
 
-tactile(250, 150, 38);
-fill(violet);
-circle(250, 150, 75);
+circleTactile(violet, 250, 150, 75);
 
-tactile(350, 50, 38);
-fill(pink);
-circle(350, 50, 75);
+circleTactile(pink, 350, 50, 75);
 
-tactile(350, 150, 38);
-fill(black);
-circle(350, 150, 75);
-
+circleTactile(black, 350, 150, 75);
 //indicator
 stroke(indColor);
 strokeWeight(thickness);
@@ -103,12 +87,21 @@ void mouseReleased() {
  indColor = black;
 }
 
-void tactile (int x, int y, int r) {
-if (dist(x, y, mouseX, mouseY) < r) {
+void circleTactile (color c, int x, int y, int r) {
+  if (dist(x, y, mouseX, mouseY) < r - 37.5) {
   stroke(white);
   } else {
     stroke(grey);
   }
+  fill(c);
+  circle(x, y, r);
+}
+void mousePressed() {
+ if (mouseY > 200) {
+    stroke (indColor);
+    strokeWeight (thickness);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+  } 
 }
 
 void mouseDragged () {
@@ -125,3 +118,10 @@ void controlSlider () {
     sliderY = mouseY;
     }
   }
+void sliderTactile (int x, int r) {
+   if (dist(x, sliderY, mouseX, mouseY) < r - 15) {
+       stroke (white);
+        } else {
+        stroke(black);
+       }
+}
