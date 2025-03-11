@@ -1,6 +1,7 @@
 //Hysan Lee
 //2-3
 //March 5, 2025
+PImage banana;
 
 color red = #d00000;
 color orange = #e85d04;
@@ -28,6 +29,7 @@ void setup() {
   strokeWeight(5);
   indColor = 255;
   sliderY = 100;
+  banana = loadImage("banana.png");
 }
 
 
@@ -65,6 +67,9 @@ stroke(indColor);
 strokeWeight(thickness);
 line(500, 25, 500, 175);
 thickness = map(sliderY, 25, 175, 1, 15);
+
+//stamp
+image(banana, 400, 600);
 }
 
 void mouseReleased() {
@@ -114,7 +119,7 @@ void mouseDragged () {
 }
 
 void controlSlider () {
-  if (mouseX > 420 && mouseX < 480 && mouseY > 25 && mouseY < 175) {
+  if (mouseX > 435 && mouseX < 465 && mouseY > 25 && mouseY < 175) {
     sliderY = mouseY;
     }
   }
