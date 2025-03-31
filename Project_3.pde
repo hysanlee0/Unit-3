@@ -2,6 +2,7 @@
 //2-3
 //March 5, 2025
 PImage banana;
+boolean stampOn;
 
 color red = #d00000;
 color orange = #e85d04;
@@ -20,6 +21,7 @@ int y;
 int r;
 float sliderY;
 float thickness;
+int toggle = 1;
 
 
 void setup() {
@@ -29,7 +31,8 @@ void setup() {
   strokeWeight(5);
   indColor = 255;
   sliderY = 100;
-  banana = loadImage("banana.png");
+  banana = loadImage("Banana.png");
+  stampOn = false;
 }
 
 
@@ -62,6 +65,7 @@ circleTactile(violet, 250, 150, 75);
 circleTactile(pink, 350, 50, 75);
 
 circleTactile(black, 350, 150, 75);
+
 //indicator
 stroke(indColor);
 strokeWeight(thickness);
@@ -69,7 +73,12 @@ line(500, 25, 500, 175);
 thickness = map(sliderY, 25, 175, 1, 15);
 
 //stamp
-image(banana, 400, 600);
+fill(white);
+strokeWeight(5);
+stampTactile();
+stampToggle();
+rect(550, 30, 75, 75);
+image (banana, 550, 30, 75, 75);
 }
 
 void mouseReleased() {
@@ -90,6 +99,19 @@ void mouseReleased() {
  indColor = pink;
  if (dist(350, 150, mouseX, mouseY) < 37.5)
  indColor = black;
+ 
+ //stamp button
+ if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105) {
+   stampOn = !stampOn;
+ }
+}
+
+void stampTactile () {
+  if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105){
+  stroke(black);
+  } else {
+    stroke (white);
+  }
 }
 
 void circleTactile (color c, int x, int y, int r) {
@@ -111,11 +133,15 @@ void mousePressed() {
 
 void mouseDragged () {
   controlSlider();
-  if (mouseY > 200) {
-    stroke (indColor);
-    strokeWeight (thickness);
-  line(pmouseX, pmouseY, mouseX, mouseY);
-  }
+  if (stampOn == false) {
+    if (mouseY > 200) {
+      stroke (indColor);
+      strokeWeight (thickness);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+  } else {
+    image (banana, mouseX, mouseY, 75, 75);
+ }
 }
 
 void controlSlider () {
@@ -129,4 +155,10 @@ void sliderTactile (int x, int r) {
         } else {
         stroke(black);
        }
+}
+
+void stampToggle () {
+ if (stampOn == true) {
+ stroke(red);
+  }
 }
