@@ -2,6 +2,7 @@
 //2-3
 //March 5, 2025
 PImage banana;
+PImage eraser;
 boolean stampOn;
 
 color red = #d00000;
@@ -32,11 +33,13 @@ void setup() {
   indColor = 255;
   sliderY = 100;
   banana = loadImage("Banana.png");
+  eraser = loadImage("eraser.jpg");
   stampOn = false;
 }
 
 
 void draw() {
+//hotbar
 noStroke();
 fill(grey);
 rect (0, 0, 800, 200);
@@ -79,26 +82,45 @@ stampTactile();
 stampToggle();
 rect(550, 30, 75, 75);
 image (banana, 550, 30, 75, 75);
+
+//eraser
+image (eraser, 548, 115, 80, 75);
 }
 
 void mouseReleased() {
  controlSlider();
- if (dist(50, 50, mouseX, mouseY) < 37.5)
- indColor = red;
- if (dist(50, 150, mouseX, mouseY) < 37.5)
- indColor = orange;
- if (dist(150, 50, mouseX, mouseY) < 37.5)
- indColor = yellow;
- if (dist(150, 150, mouseX, mouseY) < 37.5)
- indColor = green;
- if (dist(250, 50, mouseX, mouseY) < 37.5)
- indColor = blue;
- if (dist(250, 150, mouseX, mouseY) < 37.5)
- indColor = violet;
- if (dist(350, 50, mouseX, mouseY) < 37.5)
- indColor = pink;
- if (dist(350, 150, mouseX, mouseY) < 37.5)
- indColor = black;
+ if (dist(50, 50, mouseX, mouseY) < 37.5) {
+   indColor = red;
+   stampOn = false;
+  }
+ if (dist(50, 150, mouseX, mouseY) < 37.5) {
+   indColor = orange;
+   stampOn = false;
+  }
+ if (dist(150, 50, mouseX, mouseY) < 37.5) {
+   indColor = yellow;
+   stampOn = false;
+  }
+ if (dist(150, 150, mouseX, mouseY) < 37.5) {
+   indColor = green;
+   stampOn = false;
+  }
+ if (dist(250, 50, mouseX, mouseY) < 37.5) {
+   indColor = blue;
+   stampOn = false;
+  }
+ if (dist(250, 150, mouseX, mouseY) < 37.5) {
+   indColor = violet;
+   stampOn = false;
+  }
+ if (dist(350, 50, mouseX, mouseY) < 37.5) {
+   indColor = pink;
+   stampOn = false;
+  }
+ if (dist(350, 150, mouseX, mouseY) < 37.5) {
+   indColor = black;
+   stampOn = false;
+  }
  
  //stamp button
  if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105) {
@@ -127,7 +149,14 @@ void mousePressed() {
  if (mouseY > 200) {
     stroke (indColor);
     strokeWeight (thickness);
-  line(pmouseX, pmouseY, mouseX, mouseY);
+   if (stampOn == false) {
+   line(pmouseX, pmouseY, mouseX, mouseY);
+     } else {
+       pushMatrix();
+       translate(-45, -45);
+       image (banana, mouseX, mouseY, 75, 75);
+       popMatrix();
+     }
   } 
 }
 
@@ -140,7 +169,10 @@ void mouseDragged () {
     line(pmouseX, pmouseY, mouseX, mouseY);
     }
   } else {
-    image (banana, mouseX, mouseY, 75, 75);
+    pushMatrix();
+       translate(-45, -45);
+       image (banana, mouseX, mouseY, 75, 75);
+       popMatrix();
  }
 }
 
