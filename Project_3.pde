@@ -54,19 +54,12 @@ circle (450, sliderY, 30);
 
 //buttons
 circleTactile(red, 50, 50, 75);
-
 circleTactile(orange, 50, 150, 75);
-
 circleTactile(yellow, 150, 50, 75);
-
 circleTactile(green, 150, 150, 75);
-
 circleTactile(blue, 250, 50, 75);
-
 circleTactile(violet, 250, 150, 75);
-
 circleTactile(pink, 350, 50, 75);
-
 circleTactile(black, 350, 150, 75);
 
 //indicator
@@ -84,7 +77,8 @@ rect(550, 30, 75, 75);
 image (banana, 550, 30, 75, 75);
 
 //eraser
-image (eraser, 548, 115, 80, 75);
+rectTactile (white, 550, 115, 75, 75);
+image (eraser, 555, 120, 65, 65);
 }
 
 void mouseReleased() {
@@ -121,6 +115,10 @@ void mouseReleased() {
    indColor = black;
    stampOn = false;
   }
+ if (mouseX > 548 && mouseX < 628 && mouseY > 115 && mouseY < 190) {
+   indColor = white;
+   stampOn = false;
+  }
  
  //stamp button
  if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105) {
@@ -145,11 +143,29 @@ void circleTactile (color c, int x, int y, int r) {
   fill(c);
   circle(x, y, r);
 }
+
+void rectTactile (color c, int x, int y, int w, int l) {
+  if (mouseX > 548 && mouseX < 628 && mouseY > 115 && mouseY < 190) {
+   stroke(black); 
+  } else {
+    stroke(white);
+  }
+  fill(c);
+  rect(x, y, w, l);
+}
+
+
 void mousePressed() {
+  //slider
+ if (mouseX > 435 && mouseX < 465 && mouseY > 25 && mouseY < 175) {
+    sliderY = mouseY;
+    }
+ //brush
  if (mouseY > 200) {
     stroke (indColor);
     strokeWeight (thickness);
-   if (stampOn == false) {
+  //stamp
+  if (stampOn == false) {
    line(pmouseX, pmouseY, mouseX, mouseY);
      } else {
        pushMatrix();
@@ -169,10 +185,12 @@ void mouseDragged () {
     line(pmouseX, pmouseY, mouseX, mouseY);
     }
   } else {
+    if (mouseY > 200) {
     pushMatrix();
        translate(-45, -45);
        image (banana, mouseX, mouseY, 75, 75);
        popMatrix();
+    }
  }
 }
 
