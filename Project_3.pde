@@ -53,14 +53,14 @@ sliderTactile(450, 30);
 circle (450, sliderY, 30);
 
 //buttons
-circleTactile(red, 50, 50, 75);
-circleTactile(orange, 50, 150, 75);
-circleTactile(yellow, 150, 50, 75);
-circleTactile(green, 150, 150, 75);
-circleTactile(blue, 250, 50, 75);
-circleTactile(violet, 250, 150, 75);
-circleTactile(pink, 350, 50, 75);
-circleTactile(black, 350, 150, 75);
+circleButton(red, 50, 50, 75);
+circleButton(orange, 50, 150, 75);
+circleButton(yellow, 150, 50, 75);
+circleButton(green, 150, 150, 75);
+circleButton(blue, 250, 50, 75);
+circleButton(violet, 250, 150, 75);
+circleButton(pink, 350, 50, 75);
+circleButton(black, 350, 150, 75);
 
 //indicator
 stroke(indColor);
@@ -69,20 +69,22 @@ line(500, 25, 500, 175);
 thickness = map(sliderY, 25, 175, 1, 15);
 
 //stamp
-fill(white);
 strokeWeight(5);
-stampTactile();
+rectButton(550, 30, 75, 75);
 stampToggle();
-rect(550, 30, 75, 75);
 image (banana, 550, 30, 75, 75);
 
 //eraser
-rectTactile (white, 550, 115, 75, 75);
+eraseTactile (550, 115, 75, 75);
 image (eraser, 555, 120, 65, 65);
+
+//NEW button
+newTactile (675, 30, 100, 50);
 }
 
 void mouseReleased() {
  controlSlider();
+ circleButton (red, 50, 50, 75);
  if (dist(50, 50, mouseX, mouseY) < 37.5) {
    indColor = red;
    stampOn = false;
@@ -126,15 +128,18 @@ void mouseReleased() {
  }
 }
 
-void stampTactile () {
-  if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105){
+void rectButton (int x, int y, int l, int w) {
+  if (mouseX > x && mouseX < x + l && mouseY > y && mouseY < y + w){
   stroke(black);
+  fill(white);
+  strokeWeight(5);
+  rect(x, y, l, w);
   } else {
     stroke (white);
   }
 }
 
-void circleTactile (color c, int x, int y, int r) {
+void circleButton (color c, int x, int y, int r) {
   if (dist(x, y, mouseX, mouseY) < r - 37.5) {
   stroke(white);
   } else {
@@ -144,13 +149,21 @@ void circleTactile (color c, int x, int y, int r) {
   circle(x, y, r);
 }
 
-void rectTactile (color c, int x, int y, int w, int l) {
+void eraseTactile (int x, int y, int w, int l) {
   if (mouseX > 548 && mouseX < 628 && mouseY > 115 && mouseY < 190) {
    stroke(black); 
   } else {
     stroke(white);
   }
-  fill(c);
+  rect(x, y, w, l);
+}
+
+void newTactile (int x, int  y, int w, int l) {
+  if (mouseX > 675 && mouseX < 775 && mouseY > 30 && mouseY < 80) {
+    stroke(black);
+  } else {
+    stroke(white);
+  }
   rect(x, y, w, l);
 }
 
