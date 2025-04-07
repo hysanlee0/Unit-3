@@ -21,7 +21,8 @@ int x;
 int y;
 int r;
 float sliderY;
-float thickness;
+float lineThickness;
+float stampThickness;
 int toggle = 1;
 
 
@@ -64,14 +65,15 @@ void draw() {
 
   //indicator
   stroke(indColor);
-  strokeWeight(thickness);
+  strokeWeight(lineThickness);
   line(500, 25, 500, 175);
-  thickness = map(sliderY, 25, 175, 1, 15);
+  lineThickness = map(sliderY, 25, 175, 1, 15);
 
   //stamp
   strokeWeight (5);
   stampButton(white, 550, 30, 75, 75);
   image (banana, 550, 30, 75, 75);
+  stampThickness = map(sliderY, 25, 175, 1, 150);
 
   //eraser
   rectButton(white, 550, 115, 75, 75);
@@ -83,7 +85,6 @@ void draw() {
 
 void mouseReleased() {
   controlSlider();
-  circleButton (red, 50, 50, 75);
   if (dist(50, 50, mouseX, mouseY) < 37.5) {
     indColor = red;
     stampOn = false;
@@ -187,14 +188,14 @@ void mousePressed() {
   //brush
   if (mouseY > 200) {
     stroke (indColor);
-    strokeWeight (thickness);
+    strokeWeight (lineThickness);
     //stamp
     if (stampOn == false) {
       line(pmouseX, pmouseY, mouseX, mouseY);
     } else {
       pushMatrix();
-      translate(-45, -45);
-      image (banana, mouseX, mouseY, 75, 75);
+      translate((stampThickness + 45) / 45, (stampThickness + 45) / 45);
+      image (banana, mouseX, mouseY, stampThickness, stampThickness);
       popMatrix();
     }
   }
@@ -205,14 +206,14 @@ void mouseDragged () {
   if (stampOn == false) {
     if (mouseY > 200) {
       stroke (indColor);
-      strokeWeight (thickness);
+      strokeWeight (lineThickness);
       line(pmouseX, pmouseY, mouseX, mouseY);
     }
   } else {
     if (mouseY > 200) {
       pushMatrix();
-      translate(-45, -45);
-      image (banana, mouseX, mouseY, 75, 75);
+      translate((stampThickness + 45) / 45, (stampThickness + 45) / 45);
+      image (banana, mouseX, mouseY, stampThickness, stampThickness);
       popMatrix();
     }
   }
