@@ -80,7 +80,15 @@ void draw() {
   image (eraser, 555, 120, 65, 65);
 
   //NEW button
-  newButton (675, 30, 100, 50);
+  newButton (675, 20, 100, 50);
+  
+  //SAVE button
+  fill(white);
+  saveButton (675, 80, 100, 50);
+  
+  //LOAD button
+  fill(white);
+  loadButton (675, 140, 100, 50);
 }
 
 void mouseReleased() {
@@ -126,7 +134,24 @@ void mouseReleased() {
   if (mouseX > 550 && mouseX < 625 && mouseY > 30 && mouseY < 105) {
     stampOn = !stampOn;
   }
-}
+  
+  //new button
+  if (mouseX > 675 && mouseX < 775 && mouseY > 20 && mouseY < 70) {
+  fill(white);
+  noStroke();
+  rect(0, 200, 800, 600);  
+  }
+  
+  //save button
+  if (mouseX > 675 && mouseX < 775 && mouseY > 80 && mouseY < 130) {
+    selectOutput("Choose a name for your new image file homie", "saveImage");
+   }
+   
+   //load button
+   if (mouseX > 675 && mouseX < 775 && mouseY > 140 && mouseY < 190) {
+     selectInput("Pick an image to load homie", "openImage");
+   }
+  }
 
 void rectButton (color c, int x, int y, int l, int w) {
   if (mouseX > x && mouseX < x + l && mouseY > y && mouseY < y + w) {
@@ -159,24 +184,64 @@ void circleButton (color c, int x, int y, int r) {
   circle(x, y, r);
 }
 
-//void eraseTactile (color c, int x, int y, int w, int l) {
-//  if (mouseX > 548 && mouseX < 628 && mouseY > 115 && mouseY < 190) {
-//   stroke(black);
-//  } else {
-//    stroke(white);
-//  }
-//  fill (c);
-//  rect(x, y, w, l);
-//}
-
 void newButton (int x, int  y, int w, int l) {
   strokeWeight(5);
-  if (mouseX > 675 && mouseX < 775 && mouseY > 30 && mouseY < 80) {
+  if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + l) {
     stroke(black);
   } else {
     stroke(white);
   }
   rect(x, y, w, l);
+  textSize (30);
+  textAlign(CENTER, CENTER);
+  fill(black);
+  text("New", x + w / 2, y + l / 2);
+}
+
+void saveButton (int x, int y, int w, int l) {
+strokeWeight(5);
+  if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + l) {
+  stroke(black);
+  } else {
+    stroke(white);
+  }
+  rect(x, y, w, l);
+  textSize (30);
+  textAlign(CENTER, CENTER);
+  fill(black);
+  text("Save", x + w / 2, y + l / 2);
+}
+
+void saveImage(File f) {
+  if (f != null) {
+    PImage canvas = get( 71, 1, width-71, height-1);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void loadButton (int x, int y, int w, int l) {
+strokeWeight(5);
+  if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + l) {
+  stroke(black);
+  } else {
+    stroke(white);
+  }
+  rect(x, y, w, l);
+  textSize (30);
+  textAlign(CENTER, CENTER);
+  fill(black);
+  text("Load", x + w / 2, y + l / 2);
+}
+
+void openImage(File f) {
+  if (f != null) {
+    int n = 0;
+    while (n < 10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 0, 0);
+      n = n + 1;
+    }
+  }
 }
 
 
@@ -193,10 +258,7 @@ void mousePressed() {
     if (stampOn == false) {
       line(pmouseX, pmouseY, mouseX, mouseY);
     } else {
-      pushMatrix();
-      translate((stampThickness + 45) / 45, (stampThickness + 45) / 45);
-      image (banana, mouseX, mouseY, stampThickness, stampThickness);
-      popMatrix();
+     image (banana, mouseX - stampThickness / 2, mouseY - stampThickness / 2, stampThickness, stampThickness);
     }
   }
 }
@@ -211,10 +273,7 @@ void mouseDragged () {
     }
   } else {
     if (mouseY > 200) {
-      pushMatrix();
-      translate((stampThickness + 45) / 45, (stampThickness + 45) / 45);
-      image (banana, mouseX, mouseY, stampThickness, stampThickness);
-      popMatrix();
+      image (banana, mouseX - stampThickness / 2, mouseY - stampThickness / 2, stampThickness, stampThickness);
     }
   }
 }
